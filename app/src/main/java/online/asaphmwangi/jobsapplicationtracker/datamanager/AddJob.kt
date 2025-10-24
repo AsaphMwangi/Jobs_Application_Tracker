@@ -74,9 +74,8 @@ class AddJob : AppCompatActivity() {
 
     }
 
-    private fun inputCheck(title:String, company:String,location:String): Boolean
-    {
-        return!(TextUtils.isEmpty(title) && TextUtils.isEmpty(company) && TextUtils.isEmpty(location) )
+    private fun inputCheck(title: String, company: String, location: String): Boolean {
+        return title.isNotBlank() && company.isNotBlank() && location.isNotBlank()
     }
     fun setStatusBarIconColorToBlack(window: Window) {
         WindowCompat.getInsetsController(window, window.decorView).let { controller ->
