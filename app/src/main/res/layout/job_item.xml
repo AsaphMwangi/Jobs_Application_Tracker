@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:backgroundTint="@color/white"
+    android:elevation="8dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/materialDivider2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/job_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Job Title"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/materialDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_title" />
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_title"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="Company"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/company"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/company"
+            android:fontFamily="@font/roboto"
+            android:text="Location"
+            android:textColor="@color/green"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/job_title"
+            android:layout_alignBottom="@+id/job_title"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Status"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/job_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:text="date"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/job_status_edit"
+            android:layout_width="60dp"
+
+            android:layout_height="45dp"
+            android:layout_below="@+id/materialDivider"
+            android:layout_alignBottom="@+id/materialDivider2"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@+id/job_delete"
+            android:background="@drawable/input_background"
+            android:padding="0dp"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/job_delete"
+            android:layout_width="60dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/materialDivider"
+            android:layout_alignBottom="@+id/materialDivider2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/input_background"
+            android:padding="0dp"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

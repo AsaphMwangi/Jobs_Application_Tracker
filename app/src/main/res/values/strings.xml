@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Jobs Application Tracker</string>
+    <string name="home_title">Job Application Tracker</string>
+    <string name="add_job_applications">Add Job applications</string>
+</resources>
