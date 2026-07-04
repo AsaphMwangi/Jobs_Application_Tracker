@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "819330792916",
+    "project_id": "jobapplicationtracker-b45b1",
+    "storage_bucket": "jobapplicationtracker-b45b1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819330792916:android:f339f8e53e1400f305aa41",
+        "android_client_info": {
+          "package_name": "online.asaphmwangi.jobsapplicationtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819330792916-2ic1vio66tn140r7rsqc0qtrk8oo03ro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "online.asaphmwangi.jobsapplicationtracker",
+            "certificate_hash": "f83b4258c88cb2a8871c43003ddbb3dd1450f0f0"
+          }
+        },
+        {
+          "client_id": "819330792916-oijg9egoqte3vrom45un8a8ijs6ank42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-X7lZcquee4q6Z2MR3a9pqeVHNT6QuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819330792916-oijg9egoqte3vrom45un8a8ijs6ank42.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
