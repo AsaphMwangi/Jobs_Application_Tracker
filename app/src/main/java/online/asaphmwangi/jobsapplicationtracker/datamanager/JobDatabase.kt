@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [JobData::class], version = 1, exportSchema = false)
+@Database(entities = [JobData::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class JobDatabase: RoomDatabase(){
 
@@ -30,7 +30,9 @@ abstract class JobDatabase: RoomDatabase(){
                     context.applicationContext,
                     JobDatabase::class.java,
                     "jobs"
-                ).build()
+                )
+                .fallbackToDestructiveMigration()
+                .build()
                 INSTANCE = instance
                 return instance
             }

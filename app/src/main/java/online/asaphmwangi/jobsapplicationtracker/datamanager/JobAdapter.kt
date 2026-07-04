@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import online.asaphmwangi.jobsapplicationtracker.R
 import online.asaphmwangi.jobsapplicationtracker.databinding.JobItemBinding
 
+import com.google.android.material.color.MaterialColors
+import java.text.SimpleDateFormat
+import java.util.Locale
+
 class JobAdapter ( private val onItemClick: (JobData) -> Unit,
                    private val onDeleteClick: (JobData) -> Unit
 ) : RecyclerView.Adapter<JobAdapter.MyViewHolder>() {
@@ -20,33 +24,45 @@ class JobAdapter ( private val onItemClick: (JobData) -> Unit,
             binding.company.text = currentItem.company
             binding.location.text = currentItem.location
 
-            binding.jobDate.text = currentItem.date.toString()
-            val statusNumber = currentItem.status.toInt()
-            var status =""
+            val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+            binding.jobDate.text = binding.root.context.getString(R.string.applied_on, dateFormat.format(currentItem.date))
 
-            if (statusNumber==1)
-            {
-                status = "Pending"
-                binding.status.setBackgroundResource(R.drawable.pending_background)
-            }else if (statusNumber==2)
-            {
-                status = "Interviewing"
-                binding.status.setBackgroundResource(R.drawable.interviewing_background)
+            val statusNumber = currentItem.status.toInt()
+            var statusText = ""
+            var containerColor = 0
+            var textColor = 0
+
+            when (statusNumber) {
+                1 -> {
+                    statusText = "Applied"
+                    containerColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorSecondaryContainer)
+                    textColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorOnSecondaryContainer)
+                }
+                2 -> {
+                    statusText = "Interviewing"
+                    containerColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorTertiaryContainer)
+                    textColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorOnTertiaryContainer)
+                }
+                3 -> {
+                    statusText = "Offer"
+                    containerColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorPrimaryContainer)
+                    textColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorOnPrimaryContainer)
+                }
+                4 -> {
+                    statusText = "Rejected"
+                    containerColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorErrorContainer)
+                    textColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorOnErrorContainer)
+                }
+                else -> {
+                    statusText = "Unknown"
+                    containerColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorSurfaceVariant)
+                    textColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorOnSurfaceVariant)
+                }
             }
-            else if (statusNumber==3)
-            {
-                status = "Offer"
-                binding.status.setBackgroundResource(R.drawable.approved_background)
-            }
-            else if (statusNumber==4)
-            {
-                status = "Rejected"
-                binding.status.setBackgroundResource(R.drawable.rejected_background)
-            }
-            else{
-                status = "Not working"
-            }
-            binding.status.text = status
+
+            binding.status.text = statusText
+            binding.status.setTextColor(textColor)
+            binding.statusContainer.setCardBackgroundColor(containerColor)
 
             binding.jobStatusEdit.setOnClickListener {
                 onItemClick(currentItem)
@@ -54,7 +70,6 @@ class JobAdapter ( private val onItemClick: (JobData) -> Unit,
             binding.jobDelete.setOnClickListener {
                 onDeleteClick(currentItem)
             }
-
         }
     }
 

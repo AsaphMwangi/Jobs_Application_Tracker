@@ -14,6 +14,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.appbar.MaterialToolbar
 import online.asaphmwangi.jobsapplicationtracker.MainActivity
 import online.asaphmwangi.jobsapplicationtracker.R
 
@@ -24,11 +25,17 @@ class AddJob : AppCompatActivity() {
     private lateinit var jobCompany: TextInputEditText
     private lateinit var jobLocation: TextInputEditText
     private lateinit var jobViewModel: JobViewModel
+    private lateinit var toolbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_add_job)
+        
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         setStatusBarIconColorToBlack(window)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

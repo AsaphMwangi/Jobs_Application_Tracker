@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/colorSurface"
     tools:context=".UpdateJobStatus">
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Job Title"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,13 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
-            android:background="@drawable/input_background"
-            android:elevation="8dp"
-            android:orientation="vertical">
+            android:background="?attr/colorSurfaceVariant"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:orientation="horizontal">
 
@@ -52,7 +53,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:padding="10dp"
                     android:text="Status:"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="16sp" />
 
                 <TextView
@@ -64,7 +65,7 @@
                     android:gravity="center_horizontal"
                     android:padding="10dp"
                     android:text="status_value"
-                    android:textColor="#434242"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -73,57 +74,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@color/white"
                 android:checkedButton="@+id/interviewing_radio">
 
                 <RadioButton
                     android:id="@+id/interviewing_radio"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:enabled="true"
                     android:fontFamily="@font/roboto_bold"
                     android:paddingStart="10dp"
                     android:text="Interviewing"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
 
                 <RadioButton
                     android:id="@+id/offer_radio"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:checked="false"
-                    android:enabled="true"
                     android:fontFamily="@font/roboto_bold"
                     android:paddingStart="10dp"
                     android:text="Offer"
-                    android:textColor="@color/black" />
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16sp" />
 
                 <RadioButton
                     android:id="@+id/rejected_radio"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:checked="false"
-                    android:enabled="true"
                     android:fontFamily="@font/roboto_bold"
                     android:paddingStart="10dp"
                     android:text="Rejected"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
             </RadioGroup>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/job_status_update_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@drawable/input_background"
-                android:elevation="8dp"
                 android:text="Update"
-                android:textColor="@color/design_default_color_error"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:cornerRadius="8dp" />
         </LinearLayout>
     </ScrollView>
 

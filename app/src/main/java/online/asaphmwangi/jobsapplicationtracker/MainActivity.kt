@@ -2,123 +2,91 @@ package online.asaphmwangi.jobsapplicationtracker
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
-import android.widget.TextView
-import android.widget.Toast
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ScrollingView
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.NestedScrollView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import online.asaphmwangi.jobsapplicationtracker.databinding.ActivityMainBinding
 import online.asaphmwangi.jobsapplicationtracker.datamanager.AddJob
-import online.asaphmwangi.jobsapplicationtracker.datamanager.JobAdapter
-import online.asaphmwangi.jobsapplicationtracker.datamanager.JobViewModel
-
-
-
 
 class MainActivity : AppCompatActivity() {
 
-
-
-    private lateinit var topAppBar: MaterialToolbar
-    private lateinit var floatingActionButton: FloatingActionButton
-
-    private lateinit var jobViewModel: JobViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var emptyView: TextView
-    private lateinit var nestedScrollingView: NestedScrollView
-
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        auth = FirebaseAuth.getInstance()
+        if (auth.currentUser == null) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        setStatusBarIconColorToBlack(window)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
-        emptyView = findViewById(R.id.null_message)
 
-        recyclerView = findViewById(R.id.jobs_recycler_view)
-        val adapter = JobAdapter(
-            onItemClick = { selectedJob ->
-                val intent = Intent(this, UpdateJobStatus::class.java)
-                    .apply { putExtra("job_id", selectedJob.id.toString())
-                        putExtra("job_title", selectedJob.title)
-                        putExtra("job_status", selectedJob.status) }
-                startActivity(intent)
-            },
-            onDeleteClick = { selectedJob ->
-                androidx.appcompat.app.AlertDialog.Builder(this)
-                    .setTitle("Delete Job")
-                    .setMessage("Are you sure you want to delete '${selectedJob.title}'?")
-                    .setPositiveButton("Yes") { _, _ ->
-                        jobViewModel.deleteJobById(selectedJob.id)
-                        Toast.makeText(this, "Job deleted", Toast.LENGTH_SHORT).show()
-                    }
-                    .setNegativeButton("No", null)
-                    .show()
+        setSupportActionBar(binding.topAppBar)
+
+        val adapter = ViewPagerAdapter(this)
+        binding.viewPager.adapter = adapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Applied"
+                1 -> "Interviewing"
+                2 -> "Offers"
+                3 -> "Rejected"
+                else -> "Applied"
             }
-        )
+        }.attach()
 
-        recyclerView.adapter =adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        nestedScrollingView = findViewById(R.id.nestedScrollView)
-
-        jobViewModel = ViewModelProvider(this).get(JobViewModel::class.java)
-        jobViewModel.readAllJobs.observe(this, Observer{jobData ->
-            adapter.setData(jobData)
-
-            if (jobData.isEmpty()) {
-                nestedScrollingView.visibility = View.GONE
-
-                emptyView.visibility = View.VISIBLE
-            } else {
-
-                emptyView.visibility = View.GONE
-                nestedScrollingView.visibility = View.VISIBLE
-            }
-        })
-
-
-        topAppBar = findViewById(R.id.topAppBar)
-        topAppBar.setNavigationOnClickListener {
-
-        }
-        floatingActionButton = findViewById(R.id.add_job_application)
-        floatingActionButton.setOnClickListener {
+        binding.addJobApplication.setOnClickListener {
             startActivity(Intent(this, AddJob::class.java))
         }
-
-
-
-
     }
 
-    fun setStatusBarIconColorToBlack(window: Window) {
-        WindowCompat.getInsetsController(window, window.decorView).let { controller ->
-            controller.isAppearanceLightStatusBars = true
-        }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.home_app_bar, menu)
+        return true
+    }
 
-        window.apply {
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout -> {
+                auth.signOut()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private class ViewPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+        override fun getItemCount(): Int = 4
+
+        override fun createFragment(position: Int): androidx.fragment.app.Fragment {
+            return when (position) {
+                0 -> JobFragment.newInstance("all") // Applied (shows all)
+                1 -> JobFragment.newInstance("2") // Interviewing
+                2 -> JobFragment.newInstance("3") // Offers
+                3 -> JobFragment.newInstance("4") // Rejected
+                else -> JobFragment.newInstance("all")
+            }
         }
     }
 }

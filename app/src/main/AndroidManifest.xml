@@ -15,11 +15,12 @@
             android:name=".UpdateJobStatus"
             android:exported="false" />
         <activity
-            android:name=".datamanager.AddJob"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Settings"
+            android:name=".datamanager.AddJob"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

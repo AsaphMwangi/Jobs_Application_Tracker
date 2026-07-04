@@ -48,7 +48,7 @@ class UpdateJobStatus : AppCompatActivity() {
 
         if (statusNumber==1)
         {
-            status = "Pending"
+            status = "Applied"
             binding.statusValue.setBackgroundResource(R.drawable.pending_background)
         }else if (statusNumber==2)
         {
